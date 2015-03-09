@@ -114,7 +114,7 @@ public class ServerHandler extends Thread{
     //会话申请处理
     private void sessionRequestHandler(SessionRequestMessage sessionRequestMessage){
         //1.查看被申请者的状态，若为不在线，掉线，离线，忙，则直接返回错误报文
-        //错误代码为相应的状态码，不在线为0
+        //错误代码为相应的状态码，不在线为0，2离线，3掉线，4忙，9被医师拒绝
         //2.若被申请者状态为在线，生成会话室，向被申请者发送会话要求报文，为防止其他用户再次
         //对此用户发起申请，将被申请者的状态置为忙
         String fromNumber = sessionRequestMessage.getSourNumber();//申请会话者
@@ -136,7 +136,7 @@ public class ServerHandler extends Thread{
 //                    ClientQueue.getClient(fromNumber).setSessionId(sessionId);
                     //准备向医师发送会话要求，生成相应的实例
                     SessionConfirmRequestMessage sessionConfirmRequestMessage =
-                            new SessionConfirmRequestMessage("JOQR",28,sessionId,fromNumber,toNumber);
+                            new SessionConfirmRequestMessage("JORQ",28,sessionId,fromNumber,toNumber);
                     //将其挂到相应医师的队列中
                     ClientQueue.addMessage(toNumber, sessionConfirmRequestMessage);
                     break;
@@ -237,12 +237,16 @@ public class ServerHandler extends Thread{
     }
 
     //退出连接处理
+    //删除用户队列
     //暂未向会话室成员跟新状态
     private void quitHandler(QuitMessage quitMessage){
+        String regsiterNumber = quitMessage.getRegisterNumber();
         //若果用户在摸个会话室中，则退出该会话室
-        Client client = ClientQueue.getClient(quitMessage.getRegisterNumber());
+        Client client = ClientQueue.getClient(regsiterNumber);
         SessionQueue.removeMember(client.getSessionId(),quitMessage.getRegisterNumber());
         SessionQueue.isContain(client.getSessionId());
+        //删除用户队列
+        ClientQueue.removeClient(regsiterNumber);
     }
 
     //为用户开启发送线程

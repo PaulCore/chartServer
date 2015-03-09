@@ -21,6 +21,10 @@ public class ClientQueue {
         clientMessageQueue.put(registerNumber,client);
         logger.debug("加入当前用户后客户端队列为"+clientMessageQueue);
     }
+    //删除队列
+    public static void removeClient(String registerNumber){
+        clientMessageQueue.remove(registerNumber);
+    }
     public static Client getClient(String number){
         return clientMessageQueue.get(number);
     }
@@ -36,6 +40,10 @@ public class ClientQueue {
     }
     public static void addMessage(String registerNumber, Response message){
         clientMessageQueue.get(registerNumber).setMessages(message);
+    }
+    //判断用户队列是否有消息
+    public static boolean isEmpty(String registerNumber){
+        return clientMessageQueue.get(registerNumber).getMessages().isEmpty();
     }
 
 }

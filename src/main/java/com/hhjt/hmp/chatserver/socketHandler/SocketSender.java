@@ -30,14 +30,18 @@ public class SocketSender extends Thread{
             Response data;
             while (!exit){
                 if (ClientQueue.isContain(number)){
-                    if ((data= ClientQueue.getMessage(number))!=null){
+//                    if ((data= ClientQueue.getMessage(number))!=null){
+                    if (!(ClientQueue.isEmpty(number))){
 //                    logger.debug(number+"队列暂无消息，等待。。。");
 //                        data= ClientMessageQueue.getMessage(number);
 //                        logger.debug("进入发送进程");
-                        if (socket.isClosed()){
-                            ClientQueue.addMessage(number,data);
-                        }else {
+                        if (!socket.isClosed()){
+                            data = ClientQueue.getMessage(number);
                             outputStream.write(data.pack());
+                            logger.debug(number+"发送消息成功");
+//                            ClientQueue.addMessage(number,data);
+                        }else {
+
                         }
                     }
                 }else{

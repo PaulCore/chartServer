@@ -16,7 +16,17 @@ public class Client {
     private byte level;//用户级别：50H客户，20H医师
     private String sessionId;//用户所在会话室编号，若不在则为null
     private LinkedBlockingQueue<Response> messages;
+
+    public LinkedBlockingQueue<Response> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(LinkedBlockingQueue<Response> messages) {
+        this.messages = messages;
+    }
+
     public Client(byte level, SocketReceiver receiver){
+
         this.level = level;
         this.receiver = receiver;
         messages = new LinkedBlockingQueue<Response>();

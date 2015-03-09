@@ -83,14 +83,15 @@ public class SessionQueue {
     public static boolean deleteSession(String sessionId){
         boolean b = false;
         if (queue.containsKey(sessionId)){
-            queue.remove(sessionId);
-            logger.info("会话室"+sessionId+"被删除");
-            b = true;
+
             //将会话室成员的会话编号都设为空
             Set<String> set = SessionQueue.getMembers(sessionId);
             for (String s: set){
                 ClientQueue.getClient(s).setSessionId(null);
             }
+            queue.remove(sessionId);
+            logger.info("会话室"+sessionId+"被删除");
+            b = true;
         }
         return b;
     }
@@ -101,7 +102,7 @@ public class SessionQueue {
         while (members.hasNext()){
             String client = members.next();
             //转发给除去发送者之外的其他成员
-            if (!client.equals(sender)){
+            if (!(client.equals(sender))){
                 ClientQueue.addMessage(client, message);
             }
         }

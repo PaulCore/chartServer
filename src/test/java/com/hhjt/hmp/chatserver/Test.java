@@ -17,9 +17,10 @@ public class Test {
 //            e.printStackTrace();
 //        }
 
-        char[] c = new char[0];
-        String s = new String();
-        System.out.println(s=="");
-        Object o;
+//        char[] c = new char[0];
+//        String s = new String();
+//        System.out.println(s=="");
+//        Object o;
+        System.out.println("JOQR".equals("JOQR"));
     }
 }
