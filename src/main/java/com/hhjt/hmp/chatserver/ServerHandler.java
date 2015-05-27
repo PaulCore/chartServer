@@ -57,7 +57,17 @@ public class ServerHandler extends Thread{
                     case QUIT:
                         QuitMessage quitMessage = (QuitMessage) requestMessage;
                         quitHandler(quitMessage);
+                        break;
                     case STAT:
+                        break;
+                    case TEST:
+                        logger.info("test invoked!");
+                        Test test = (Test) requestMessage;
+                        try {
+                            test.getReceiver().getSocket().getOutputStream().write("OK".getBytes());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     default:
                         logger.error("没有该命令");
@@ -100,6 +110,9 @@ public class ServerHandler extends Thread{
         }else {//此用户队列不存在
             logger.debug(registerNumber+"用户队列不存在，为其创建队列");
 //            receiver.setRegisteNumber(registerNumber);
+            if (connectRequestMessage.getLevel()==80)
+                logger.info("用户：" + registerNumber + "登陆系统");
+            else logger.info("医师：" + registerNumber + "登陆系统");
             //建队列
             ClientQueue.addClient(registerNumber,connectRequestMessage.getLevel(),receiver);
             //建立发送线程
@@ -120,6 +133,7 @@ public class ServerHandler extends Thread{
         String fromNumber = sessionRequestMessage.getSourNumber();//申请会话者
         String toNumber = sessionRequestMessage.getDesNumber();//被申请的医师
         SessionResponseMessage sessionResponseMessage = null;
+        logger.info("用户：" + fromNumber + "向医师：" + toNumber +"发起会话申请");
         //若果toNumber不在线直接返回错误
         if(!(ClientQueue.isContain(toNumber))){
             logger.info(fromNumber+"申请会话的"+toNumber+"不在线");
@@ -185,6 +199,7 @@ public class ServerHandler extends Thread{
     private void sessionExitRequestHandler(SessionExitRequestMessage message){
         String sessionId = message.getSessionId();
         String registerNumber = message.getRegisterNumber();
+        logger.info("用户" + registerNumber + "退出会话室" + sessionId);
         //1.将registerNumber从sessionId中删除
         //2.生成sessionExitResponseMessage实例，并挂到registerNumber队列中
         //3.更改registerNumber的状态
@@ -199,6 +214,7 @@ public class ServerHandler extends Thread{
             ClientQueue.getClient(registerNumber).setState('1');
             StateSendMessage stateSendMessage = new StateSendMessage("STAT",12,registerNumber,'1');
             SessionQueue.sendMessage(sessionId, "Server", stateSendMessage);
+            logger.info("删除会话室"+sessionId);
             SessionQueue.isDeleteSession(sessionId);
         }else {//发生错误
             SessionExitResponseMessage responseMessage = new SessionExitResponseMessage("EXAS",1,0);
@@ -213,6 +229,8 @@ public class ServerHandler extends Thread{
         //若该会话室已不存在直接扔掉，否则走流程
         if(SessionQueue.isContain(sessionConfirmResponseMessage.getSessionId())){
             if (sessionConfirmResponseMessage.getResult().equals("1")){//会话要求回复成功
+                logger.info("医师"+ sessionConfirmResponseMessage.getRequiredNumber()+"同意用户"+sessionConfirmResponseMessage.getRequestNumber()
+                        +"的会话申请，会话室编号为：" + sessionConfirmResponseMessage.getSessionId());
                 //将该医师的状态置为忙
                 //ClientQueue.getClient(sessionConfirmResponseMessage.getRequiredNumber()).setState('4');
                 //生成相应的会话回复实例
@@ -221,6 +239,8 @@ public class ServerHandler extends Thread{
                 ClientQueue.getClient(sessionConfirmResponseMessage.getRequestNumber()).setState('4');
                 sessionResponseMessage.setRoomNumber(sessionConfirmResponseMessage.getSessionId());
             }else {//会话要求回复失败，生成失败实例
+                logger.info("医师"+ sessionConfirmResponseMessage.getRequiredNumber()+"拒绝用户"+sessionConfirmResponseMessage.getRequestNumber()
+                        +"的会话申请，会话室编号为：" + sessionConfirmResponseMessage.getSessionId());
                 sessionResponseMessage = new SessionResponseMessage("APAS",1,0);
                 //将医师的状态改为在线
                 ClientQueue.getClient(sessionConfirmResponseMessage.getRequiredNumber()).setState('1');

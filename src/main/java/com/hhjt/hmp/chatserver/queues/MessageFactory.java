@@ -31,6 +31,8 @@ public class MessageFactory {
                 return new SessionExitRequestMessage(commandStr,data,receiver);
             case RCRQ:
                 return new ReConnectRequestMessage(commandStr,data,receiver);
+            case TEST:
+                return new Test(commandStr,data,receiver);
             default:
                 logger.info("报文命令出错，丢弃");
                 return null;

@@ -41,6 +41,7 @@ public class SocketReceiver extends  Thread {
                 packageCheck();
             }
 //            logger.debug(socket+"receive线程关闭");
+            logger.info(registeNumber+"退出登陆");
 
         } catch (IOException e) {
             logger.info(socket+"异常关闭");

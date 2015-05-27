@@ -103,6 +103,7 @@ public class SessionQueue {
             String client = members.next();
             //转发给除去发送者之外的其他成员
             if (!(client.equals(sender))){
+                logger.info(sender+ "向" + client + "发送消息" );
                 ClientQueue.addMessage(client, message);
             }
         }

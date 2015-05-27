@@ -18,11 +18,11 @@ public class Server {
     private ServerSocket serverSocket;
     public Server(){
         try {
-//            serverSocket = new ServerSocket(8080);
-            serverSocket = new ServerSocket();
-            InetAddress address = InetAddress.getLocalHost();
-            InetSocketAddress socketAddress = new InetSocketAddress(address,5000);
-            serverSocket.bind(socketAddress);
+            serverSocket = new ServerSocket(8080);
+//            serverSocket = new ServerSocket();
+//            InetAddress address = InetAddress.getLocalHost();
+//            InetSocketAddress socketAddress = new InetSocketAddress(address,5000);
+//            serverSocket.bind(socketAddress);
             logger.info(serverSocket);
 //            logger.info(InetAddress.getLocalHost().getHostAddress()+":"+serverSocket.getLocalPort());
             logger.info("服务器启动...");
