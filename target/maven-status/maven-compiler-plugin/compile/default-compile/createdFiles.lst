@@ -1,7 +1,9 @@
 com\hhjt\hmp\chatserver\entity\StateSendMessage.class
 com\hhjt\hmp\chatserver\entity\SessionConfirmResponseMessage.class
+com\hhjt\hmp\chatserver\Demo$1.class
 com\hhjt\hmp\chatserver\socketHandler\SocketSender.class
 com\hhjt\hmp\chatserver\entity\SessionRequestMessage.class
+com\hhjt\hmp\chatserver\entity\Test.class
 com\hhjt\hmp\chatserver\queues\Client.class
 com\hhjt\hmp\chatserver\Server.class
 com\hhjt\hmp\chatserver\ServerHandler$1.class
@@ -25,4 +27,5 @@ com\hhjt\hmp\chatserver\entity\ContextSendMessage.class
 com\hhjt\hmp\chatserver\queues\MessageFactory.class
 com\hhjt\hmp\chatserver\entity\SessionExitRequestMessage.class
 com\hhjt\hmp\chatserver\entity\SessionExitResponseMessage.class
+com\hhjt\hmp\chatserver\Demo.class
 com\hhjt\hmp\chatserver\queues\SessionQueue.class

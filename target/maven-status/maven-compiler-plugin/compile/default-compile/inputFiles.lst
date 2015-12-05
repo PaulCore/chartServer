@@ -1,5 +1,5 @@
-D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\ConnectRequestMessage.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\Request.java
+D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\ConnectRequestMessage.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\queues\Client.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\socketHandler\SocketReceiver.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\SessionExitRequestMessage.java
@@ -7,8 +7,10 @@ D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\SessionEx
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\ReConnectRequestMessage.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\ServerHandler.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\SessionConfirmResponseMessage.java
+D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\Test.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\Response.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\ContextSendMessage.java
+D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\Demo.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\Server.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\queues\MessageFactory.java
 D:\develop\itelplace\chat\src\main\java\com\hhjt\hmp\chatserver\entity\QuitMessage.java
